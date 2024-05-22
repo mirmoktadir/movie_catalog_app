@@ -1,5 +1,9 @@
 **# A Movie Catalog App**
-![Home Page](assets/images/ex1.png) ![Detail Page](assets/images/ex2.png)
+## **Feature**
+- Offline caching for movie list
+- Movie list
+- Detail of a movie
+- Search by query
 
 <table>
   <tr>
@@ -15,12 +19,7 @@
  </table>
 
 
-**# Flutter GetX Template with GetCLI**
 
-**## GetX, Rest Api, GraphQL Api, FirebaseCLI, Hive,** 
-
-Flutter Getx template to make starting project fast and easy
-.
 
 ## **Feature**
 
