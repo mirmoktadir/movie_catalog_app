@@ -1,6 +1,6 @@
 **# A Movie Catalog App**
-![Home Page](assets/images/ex1.png)
-![Detail Page](assets/images/ex2.png)
+![Home Page](assets/images/ex1.png) [Detail Page](assets/images/ex2.png)
+
 
 
 **# Flutter GetX Template with GetCLI**
