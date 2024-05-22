@@ -39,7 +39,7 @@ class MovieDetailView extends GetView<HomeController> {
               children: [
                 Text(
                   movie?.title ?? "",
-                  style: theme.textTheme.headlineLarge,
+                  style: theme.textTheme.headlineMedium,
                 ),
                 SizedBox(height: 12.sp),
                 Row(

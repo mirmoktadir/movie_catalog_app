@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:movie_catalog_app/app/components/global-widgets/splash_container.dart';
 import 'package:movie_catalog_app/app/routes/app_pages.dart';
 import 'package:movie_catalog_app/app/service/REST/api_urls.dart';
+import 'package:movie_catalog_app/app/service/helper/network_connectivity.dart';
 import 'package:movie_catalog_app/config/theme/light_theme_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../components/global-widgets/empty_widget.dart';
+import '../../../components/global-widgets/my_snackbar.dart';
 import '../../../components/global-widgets/network_image_box.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../controllers/home_controller.dart';
@@ -183,12 +185,15 @@ class HomeView extends GetView<HomeController> {
               ),
               InkWell(
                 onTap: () async {
-                  await controller
-                      .getMovieDetail(controller.movies[index].id.toString());
-                  await controller
-                      .getSimilarMovie(controller.movies[index].id.toString());
+                  if (await NetworkConnectivity.isNetworkAvailable()) {
+                    await controller
+                        .getMovieDetail(controller.movies[index].id.toString());
 
-                  Get.toNamed(Routes.MOVIE_DETAIL);
+                    await 1.delay();
+                    Get.toNamed(Routes.MOVIE_DETAIL);
+                  } else {
+                    MySnackBar.showErrorToast(message: "No network!");
+                  }
                 },
                 child: Container(
                   height: 240.sp,

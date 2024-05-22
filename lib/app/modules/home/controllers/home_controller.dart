@@ -48,7 +48,7 @@ class HomeController extends GetxController with ExceptionHandler {
     });
   }
 
-  /// GET ALL RECIPES LIST 'HIVE IMPLEMENTED'
+  /// GET ALL MOVIES LIST 'HIVE IMPLEMENTED'
   final movies = RxList<Movies>();
   getAllMovies() async {
     showLoading();
@@ -102,14 +102,12 @@ class HomeController extends GetxController with ExceptionHandler {
     if (response == null) return;
 
     movieDetail = MovieDetail.fromJson(response);
-
     hideLoading();
+    await getSimilarMovie(movieID);
   }
 
   final similarMovies = RxList<Similar>();
   getSimilarMovie(String movieID) async {
-    showLoading();
-
     var response = await DioClient()
         .get(
           url: "${ApiUrl.similarMovies}$movieID/similar",
@@ -119,8 +117,6 @@ class HomeController extends GetxController with ExceptionHandler {
 
     similarMovies.assignAll(
         (response["results"] as List).map((e) => Similar.fromJson(e)).toList());
-
-    hideLoading();
   }
 
   search(String query) async {
