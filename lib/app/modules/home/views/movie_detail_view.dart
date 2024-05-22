@@ -25,7 +25,7 @@ class MovieDetailView extends GetView<HomeController> {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          SizedBox(height: 18.sp),
+          SizedBox(height: 5.sp),
           SizedBox(
             width: double.infinity,
             height: 250.sp,
@@ -140,31 +140,37 @@ class MovieDetailView extends GetView<HomeController> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           final movie = similarMovie[index];
-                          return Container(
-                            width: 100.sp,
-                            decoration: BoxDecoration(
-                                color: Colors.orange.withOpacity(.1),
-                                borderRadius: BorderRadius.circular(15.r)),
-                            child: Column(
-                              children: [
-                                NetworkImageBox(
-                                    url: "${ApiUrl.image}${movie.posterPath}",
-                                    radius: 15),
-                                SizedBox(height: 5.sp),
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    child: Text(
-                                      movie.originalTitle ?? "",
-                                      maxLines: 2,
-                                      style: theme.textTheme.bodyLarge,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                          return InkWell(
+                            onTap: () async {
+                              await controller
+                                  .getMovieDetail(movie.id.toString());
+                            },
+                            child: Container(
+                              width: 100.sp,
+                              decoration: BoxDecoration(
+                                  color: Colors.orange.withOpacity(.1),
+                                  borderRadius: BorderRadius.circular(15.r)),
+                              child: Column(
+                                children: [
+                                  NetworkImageBox(
+                                      url: "${ApiUrl.image}${movie.posterPath}",
+                                      radius: 15),
+                                  SizedBox(height: 5.sp),
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: Text(
+                                        movie.originalTitle ?? "",
+                                        maxLines: 2,
+                                        style: theme.textTheme.bodyLarge,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },

@@ -24,6 +24,7 @@ class HomeController extends GetxController with ExceptionHandler {
 
   RxString title = "".obs;
   RxString body = "".obs;
+  RxBool noSearch = false.obs;
 
   scrollPositionTracker() {
     Timer? debounce;
@@ -130,6 +131,10 @@ class HomeController extends GetxController with ExceptionHandler {
 
     movies.assignAll(
         (response["results"] as List).map((e) => Movies.fromJson(e)).toList());
+    if (movies.isEmpty) {
+      noSearch.value = true;
+    }
+
     hideLoading();
   }
 
