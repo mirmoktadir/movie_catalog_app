@@ -1,6 +1,18 @@
 **# A Movie Catalog App**
 ![Home Page](assets/images/ex1.png) ![Detail Page](assets/images/ex2.png)
 
+<table>
+  <tr>
+    <td>Home Screen </td>
+     <td>Detail Screen</td>
+    
+  </tr>
+  <tr>
+    <td><img src="assets/images/ex1.png" width=270 height=480 alt=""></td>
+    <td><img src="assets/images/ex2.png" width=270 height=480 alt=""></td>
+    
+  </tr>
+ </table>
 
 
 **# Flutter GetX Template with GetCLI**
