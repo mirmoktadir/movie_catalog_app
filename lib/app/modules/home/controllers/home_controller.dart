@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 import '../../../components/global-widgets/my_snackbar.dart';
 import '../../../components/navbar/navbar_controller.dart';
@@ -91,7 +92,7 @@ class HomeController extends GetxController with ExceptionHandler {
     }
   }
 
-  MovieDetail? movieDetail;
+  var movieDetail = Rxn<MovieDetail>();
   getMovieDetail(String movieID) async {
     showLoading();
 
@@ -102,7 +103,8 @@ class HomeController extends GetxController with ExceptionHandler {
         .catchError(handleError);
     if (response == null) return;
 
-    movieDetail = MovieDetail.fromJson(response);
+    movieDetail.value = MovieDetail.fromJson(response);
+    Logger().d(response);
     hideLoading();
     await getSimilarMovie(movieID);
   }
@@ -118,6 +120,7 @@ class HomeController extends GetxController with ExceptionHandler {
 
     similarMovies.assignAll(
         (response["results"] as List).map((e) => Similar.fromJson(e)).toList());
+    Logger().d(response);
   }
 
   search(String query) async {

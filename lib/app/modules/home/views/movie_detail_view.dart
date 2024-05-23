@@ -14,12 +14,11 @@ class MovieDetailView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var movie = controller.movieDetail;
     var similarMovie = controller.similarMovies;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
-        title: Text(movie?.title ?? ""),
+        title: Obx(() => Text(controller.movieDetail.value?.title ?? "")),
         centerTitle: true,
       ),
       body: Obx(() => ListView(
@@ -30,7 +29,9 @@ class MovieDetailView extends GetView<HomeController> {
                 width: double.infinity,
                 height: 250.sp,
                 child: NetworkImageBox(
-                    url: "${ApiUrl.image}${movie?.posterPath}", radius: 0),
+                    url:
+                        "${ApiUrl.image}${controller.movieDetail.value?.posterPath}",
+                    radius: 0),
               ),
               Padding(
                 padding: EdgeInsets.all(18.sp),
@@ -38,7 +39,7 @@ class MovieDetailView extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movie?.title ?? "",
+                      controller.movieDetail.value?.title ?? "",
                       style: theme.textTheme.headlineMedium,
                     ),
                     SizedBox(height: 12.sp),
@@ -51,7 +52,7 @@ class MovieDetailView extends GetView<HomeController> {
                         ),
                         SizedBox(width: 12.sp),
                         Text(
-                          "${movie!.runtime.toString()} minutes",
+                          "${controller.movieDetail.value!.runtime.toString()} minutes",
                           style: theme.textTheme.bodyLarge,
                         ),
                         SizedBox(width: 30.sp),
@@ -61,7 +62,7 @@ class MovieDetailView extends GetView<HomeController> {
                         ),
                         SizedBox(width: 12.sp),
                         Text(
-                          "${movie.voteAverage?.toStringAsFixed(1)} iMDB",
+                          "${controller.movieDetail.value?.voteAverage?.toStringAsFixed(1)} iMDB",
                           style: theme.textTheme.bodyLarge,
                         ),
                       ],
@@ -79,7 +80,7 @@ class MovieDetailView extends GetView<HomeController> {
                             ),
                             SizedBox(height: 10.sp),
                             Text(
-                              "${movie.releaseDate}",
+                              "${controller.movieDetail.value?.releaseDate}",
                               style: theme.textTheme.bodyLarge,
                             ),
                           ],
@@ -100,13 +101,16 @@ class MovieDetailView extends GetView<HomeController> {
                                   padding: EdgeInsets.zero,
                                   itemBuilder: (context, index) {
                                     return Center(
-                                        child: Text(
-                                            movie.genres?[index].name ?? ""));
+                                        child: Text(controller.movieDetail.value
+                                                ?.genres?[index].name ??
+                                            ""));
                                   },
                                   separatorBuilder: (context, index) {
                                     return SizedBox(width: 10.sp);
                                   },
-                                  itemCount: movie.genres?.length ?? 0),
+                                  itemCount: controller
+                                          .movieDetail.value?.genres?.length ??
+                                      0),
                             ),
                           ],
                         ),
@@ -119,7 +123,7 @@ class MovieDetailView extends GetView<HomeController> {
                     ),
                     SizedBox(height: 8.sp),
                     ExpandableText(
-                      movie.overview ?? "",
+                      controller.movieDetail.value?.overview ?? "",
                       expandText: 'show more',
                       collapseText: 'show less',
                       maxLines: 4,
